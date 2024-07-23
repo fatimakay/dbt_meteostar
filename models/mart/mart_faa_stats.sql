@@ -13,9 +13,9 @@ WITH airport_stats AS (
         COUNT(DISTINCT CASE WHEN pf.origin = pa.faa OR pf.dest = pa.faa THEN pf.tail_number END) AS unique_airplanes,
         COUNT(DISTINCT CASE WHEN pf.origin = pa.faa OR pf.dest = pa.faa THEN pf.airline END) AS unique_airlines
     FROM 
-        prep_airports pa
+        {{ref('prep_airports')}} pa
     LEFT JOIN 
-        prep_flights pf ON pa.faa = pf.origin OR pa.faa = pf.dest
+        {{ref('prep_flights')}} pf ON pa.faa = pf.origin OR pa.faa = pf.dest
     GROUP BY 
         pa.faa, pa.name, pa.city, pa.country
 )
