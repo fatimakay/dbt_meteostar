@@ -35,4 +35,4 @@ SELECT
 FROM 
     airport_stats
 ORDER BY 
-    airport_code;
+    airport_code
