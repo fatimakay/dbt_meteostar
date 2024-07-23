@@ -6,16 +6,16 @@ WITH airport_stats AS (
         pa.country,
         COUNT(DISTINCT CASE WHEN pf.origin = pa.faa THEN pf.dest END) AS unique_departure_connections,
         COUNT(DISTINCT CASE WHEN pf.dest = pa.faa THEN pf.origin END) AS unique_arrival_connections,
-        COUNT(*) AS total_planned_flights,
+        COUNT(pf.flight_date) AS total_planned_flights,
         SUM(CASE WHEN pf.cancelled = 1 THEN 1 ELSE 0 END) AS total_cancelled_flights,
         SUM(CASE WHEN pf.diverted = 1 THEN 1 ELSE 0 END) AS total_diverted_flights,
         SUM(CASE WHEN pf.cancelled = 0 AND pf.diverted = 0 THEN 1 ELSE 0 END) AS total_actual_flights,
         COUNT(DISTINCT CASE WHEN pf.origin = pa.faa OR pf.dest = pa.faa THEN pf.tail_number END) AS unique_airplanes,
         COUNT(DISTINCT CASE WHEN pf.origin = pa.faa OR pf.dest = pa.faa THEN pf.airline END) AS unique_airlines
     FROM 
-        {{ref('prep_airports')}} pa
+        prep_airports pa
     LEFT JOIN 
-        {{ref('prep_flights')}} pf ON pa.faa = pf.origin OR pa.faa = pf.dest
+        prep_flights pf ON pa.faa = pf.origin OR pa.faa = pf.dest
     GROUP BY 
         pa.faa, pa.name, pa.city, pa.country
 )
@@ -35,4 +35,4 @@ SELECT
 FROM 
     airport_stats
 ORDER BY 
-    airport_code
+    airport_code;
