@@ -7,7 +7,7 @@ WITH daily_flight_stats AS (
         f.flight_date,
         COUNT(DISTINCT f.dest) AS unique_departure_connections,
         COUNT(DISTINCT f.origin) AS unique_arrival_connections,
-        COUNT(f.flight_id) AS total_flights,
+        COUNT(f.flight_date) AS total_flights,
         SUM(CASE WHEN f.cancelled = 1 THEN 1 ELSE 0 END) AS total_cancelled,
         SUM(CASE WHEN f.diverted = 1 THEN 1 ELSE 0 END) AS total_diverted,
         COUNT(f.flight_id) - SUM(CASE WHEN f.cancelled = 1 THEN 1 ELSE 0 END) - SUM(CASE WHEN f.diverted = 1 THEN 1 ELSE 0 END) AS total_actual_flights,
