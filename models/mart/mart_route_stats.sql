@@ -18,7 +18,7 @@
         SUM(CASE WHEN f.cancelled = 1 THEN 1 ELSE 0 END) AS total_cancelled,
         SUM(CASE WHEN f.diverted = 1 THEN 1 ELSE 0 END) AS total_diverted
     FROM 
-        {{ref('prep_flights')}}s f
+        {{ref('prep_flights')}} f
     LEFT JOIN 
         {{ref('prep_airports')}} ao ON f.origin = ao.faa
     LEFT JOIN 
