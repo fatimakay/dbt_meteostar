@@ -10,7 +10,7 @@ WITH weekly_weather AS (
         AVG(avg_wind_speed_kmh) AS avg_wind_speed, 
         MAX(wind_peakgust_kmh) AS max_wind_gust
     FROM
-        prep_weather_daily
+        {{ref('prep_weather_daily')}}
     GROUP BY
         DATE_TRUNC('week', date), airport_code -- Group by week and airport
 )
