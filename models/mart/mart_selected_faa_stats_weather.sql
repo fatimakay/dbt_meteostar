@@ -10,7 +10,7 @@ WITH daily_flight_stats AS (
         COUNT(f.flight_date) AS total_flights,
         SUM(CASE WHEN f.cancelled = 1 THEN 1 ELSE 0 END) AS total_cancelled,
         SUM(CASE WHEN f.diverted = 1 THEN 1 ELSE 0 END) AS total_diverted,
-        COUNT(f.flight_id) - SUM(CASE WHEN f.cancelled = 1 THEN 1 ELSE 0 END) - SUM(CASE WHEN f.diverted = 1 THEN 1 ELSE 0 END) AS total_actual_flights,
+        COUNT(f.flight_date) - SUM(CASE WHEN f.cancelled = 1 THEN 1 ELSE 0 END) - SUM(CASE WHEN f.diverted = 1 THEN 1 ELSE 0 END) AS total_actual_flights,
         ROUND(AVG(f.unique_airplanes), 2) AS avg_unique_airplanes,
         ROUND(AVG(f.unique_airlines), 2) AS avg_unique_airlines
     FROM 
