@@ -48,4 +48,4 @@ SELECT
 FROM 
     route_stats
 ORDER BY 
-    origin_airport_code, destination_airport_code;
+    origin_airport_code, destination_airport_code
